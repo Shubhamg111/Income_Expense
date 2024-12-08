@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-4">
+  <div class="row mb-3 ms-1">
+    <div class="col-md-10 bg-secondary-subtle">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'expenses' %}">Incomer</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Edit Income</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-2">
+      <a href="{% url 'income-delete' income.id %}" class="btn btn-danger">Delete</a>
+    </div>
+  </div>
+  
+
+  <div class="card">
+    <div class="card-body">
+      <form action="{% url 'income-edit' income.id %}" method="post">
+        {% include "partials/messages.html" %}
+        {% csrf_token %}
+        <div class="mb-2">
+          <label for="">Amount</label>
+          <input
+            type="text"
+            class="form-control"
+            id="floatingInput"
+            placeholder=""
+            name="amount"
+            value="{{values.amount}}"
+          />
+        </div>
+
+        <div class="mb-2">
+          <label for="">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="floatingInput"
+            placeholder=""
+            name="description"
+            value="{{values.description}}"
+          />
+        </div>
+
+        <div class="mb-2">
+          <label for="">Sourses</label>
+
+          <select name="source" class="form-select">
+            <option selected name="category" value="{{values.source}}">{{values.source}}</option>
+            {% for item in sources %}
+            <option name="source" value="{{item.name}}">{{item.name}}</option>
+
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-2">
+          <label for="">Date of Income</label>
+          <input
+            type="date"
+            class="form-control"
+            id="floatingInput"
+            placeholder=""
+            value="{{values.date | date:'Y-m-d'  }}"
+            name="income_date"
+          />
+        </div>
+        <input type="submit" value="Save" class="btn btn-primary" />
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

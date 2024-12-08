@@ -1,0 +1,54 @@
+{% extends "base_auth.html" %}
+{% load static %}
+{% block content %}
+
+<div class="row my-5">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          <h4 class="text-center text-secondary">Login Your Account</h4>
+          <hr />
+        </div>
+        <form action="{% url 'login' %}" method="post">
+          {% csrf_token %} {% include "partials/messages.html" %}
+          <div class="form-floating mb-3">
+            <input type="text" name="username" id="usernameField" class="form-control form-control-sm"
+              placeholder="Username" value="{{fieldValues.username}}" />
+            <label for="usernameField">Username</label>
+          </div>
+
+
+
+
+
+          <div class="form-floating mb-3">
+
+            <input type="password" name="password" id="passwordField" class="form-control form-control-sm"
+              placeholder="Password">
+            <label for="passwordField">Password</label>
+
+          </div>
+          <small class="float-end py-3 showPasswordToggle">SHOW</small>
+
+
+          <div class="mt-5">
+            <input type="submit" value="Login" class="btn btn-primary submit-btn w-100" />
+          </div>
+        </form>
+        <div class="container">
+
+
+          <span class="text-lead lead">Dont have account ?</span><a href="{% url 'register' %}">Register</a><br>
+          <span class="text-lead lead">Forgot Password ?</span><a href="{% url 'request-password' %}">Reset Password</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+<script src="{% static 'js/login.js' %}"></script>
+
+{% endblock %}
